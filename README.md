@@ -48,4 +48,3 @@ BetterPrompts works by directly utilizing the Google Gemini API (specifically th
 
 ---
 
-*Happy Prompting!*
