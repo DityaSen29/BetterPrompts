@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+  <title>BetterPrompts</title>
+</head>
+<body>
+  <div class="header">
+    <div class="logo-area">
+      <img src="icons/icon.png" alt="Logo" class="mini-logo">
+      <h2>BetterPrompts</h2>
+    </div>
+    <button id="settingsBtn" title="Set API Key" class="settings-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      <span>API Key / Settings</span>
+    </button>
+  </div>
+
+  <!-- Setup State -->
+  <div id="setupContainer" class="container hidden">
+    <div class="setup-illustration">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+    </div>
+    <h3>API Key Required</h3>
+    <p>To power these smart prompts, you need to connect your Google Gemini API key securely.</p>
+    <button id="openSetupBtn" class="primary-btn pulse">Connect API Key</button>
+  </div>
+
+  <!-- Main App State -->
+  <div id="appContainer" class="container hidden">
+    <div class="input-wrapper">
+      <label for="draftInput" class="sr-only">Your Draft</label>
+      <textarea id="draftInput" placeholder="Paste your messy brain-dump here..." spellcheck="false"></textarea>
+    </div>
+    
+    <div class="format-section">
+      <span class="text-sm fw-bold">Output Format:</span>
+      <div class="toggle-group">
+        <input type="radio" id="fmt-std" name="format" value="standard" checked>
+        <label for="fmt-std">Standard</label>
+
+        <input type="radio" id="fmt-json" name="format" value="json">
+        <label for="fmt-json">JSON</label>
+
+        <input type="radio" id="fmt-xml" name="format" value="xml">
+        <label for="fmt-xml">XML</label>
+
+        <input type="radio" id="fmt-table" name="format" value="table">
+        <label for="fmt-table">Table</label>
+
+        <input type="radio" id="fmt-bullets" name="format" value="bullets">
+        <label for="fmt-bullets">Bullets</label>
+      </div>
+    </div>
+
+    <button id="refineBtn" class="primary-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"></path><path d="m14 7 3 3"></path><path d="M5 6v4"></path><path d="M19 14v4"></path><path d="M10 2v2"></path><path d="M7 8H3"></path><path d="M21 16h-4"></path><path d="M11 3H9"></path></svg>
+      Refine Prompt
+    </button>
+
+    <div class="output-wrapper">
+      <label for="outputArea" class="sr-only">Refined Prompt</label>
+      <textarea id="outputArea" readonly placeholder="Your perfectly structured prompt will appear here..."></textarea>
+      
+      <!-- Inside output wrapper for absolute positioning -->
+      <button id="copyBtn" class="copy-fab" title="Copy to Clipboard">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
